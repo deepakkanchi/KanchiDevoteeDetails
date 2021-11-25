@@ -1,16 +1,16 @@
 import Head from 'next/head'
 
-import MainPage from '../components/MainPage'
+import UploadData from '../components/UploadData'
 
 export default function Home() {
   return (
     <>
       <Head>
-        <title>Devotee Details</title>
+        <title>Upload Data</title>
         <link rel="icon" href="/favicon.png" />
       </Head>
 
-      <MainPage />
+      <UploadData />
 
     </>
   )

@@ -1,16 +1,16 @@
 import Head from 'next/head'
 
-import MainPage from '../components/MainPage'
+import NewDevotee from '../components/NewDevotee'
 
 export default function Home() {
   return (
     <>
       <Head>
-        <title>Devotee Details</title>
+        <title>New Devotee</title>
         <link rel="icon" href="/favicon.png" />
       </Head>
 
-      <MainPage />
+      <NewDevotee />
 
     </>
   )
