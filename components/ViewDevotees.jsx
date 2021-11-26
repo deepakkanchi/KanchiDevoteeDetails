@@ -10,15 +10,16 @@ import MainLinks from './MainLinks'
 import StaticContentImg from './StaticContentImg';
 
 import DevoteeDataTable from './DevoteeDataTable';
+import SearchAndViewDetails from './SearchAndViewDetails';
 
 export default function ViewDevotees() {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Header text="Sri Kanchi Kamakoti Peetam - Devotee Details" />
             <div style={{ "display": "flex", alignItems: "center", flexDirection: "column", marginBottom: "40px" }}>
-                <StaticContentImg/>
-                <div style={{width:"900px"}}>
-                <DevoteeDataTable/>
+                <StaticContentImg />
+                <div style={{ width: "900px" }}>
+                    <SearchAndViewDetails />
                 </div>
             </div>
             <Header text="" />

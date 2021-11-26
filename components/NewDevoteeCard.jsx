@@ -29,44 +29,44 @@ export default function NewDevoteeCard() {
 
     return (
         <>
-        <Card style={{ minWidth: "600px", backgroundColor: "rgb(255 255 249)" }}>
-            <CardContent>
-                <div style={{ display: "flex", alignItems: "center", flexDirection: "column", marginTop: "-15px" }}>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} style={{ color: "#e96a43" }} >
-                        <b>ADD NEW DEVOTEE</b>
-                    </Typography>
+            <Card style={{ minWidth: "600px", backgroundColor: "rgb(255 255 249)" }}>
+                <CardContent>
+                    <div style={{ display: "flex", alignItems: "center", flexDirection: "column", marginTop: "-15px" }}>
+                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} style={{ color: "#e96a43" }} >
+                            <b>ADD NEW DEVOTEE</b>
+                        </Typography>
 
-                    <br />
-                    <div style={{ display: "flex", flexDirection: "column", height: "275px", width: "500px", justifyContent: "space-between" }}>
-                        <TextField label="Name" variant="outlined" onChange={(e, v) => { setName(v) }} />
-                        <TextField label="Address" variant="outlined" onChange={(e, v) => { setAddress(v) }} />
-                        <TextField label="Phone" variant="outlined" onChange={(e, v) => { setPhone(v) }} />
-                        <TextField label="E-Mail" variant="outlined" onChange={(e, v) => { setEmail(v) }} />
+                        <br />
+                        <div style={{ display: "flex", flexDirection: "column", height: "275px", width: "500px", justifyContent: "space-between" }}>
+                            <TextField label="Name" variant="outlined" onChange={(e, v) => { setName(v) }} />
+                            <TextField label="Address" variant="outlined" onChange={(e, v) => { setAddress(v) }} />
+                            <TextField label="Phone" variant="outlined" onChange={(e, v) => { setPhone(v) }} />
+                            <TextField label="E-Mail" variant="outlined" onChange={(e, v) => { setEmail(v) }} />
+                        </div>
                     </div>
-                </div>
-            </CardContent>
-            <CardActions style={{ backgroundColor: "rgb(245 240 238)", display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-                <Button variant="contained" style={{ color: "#e96a43", backgroundColor: "rgb(235 223 181)" }} onClick={submitNewDevoteeDetails}><b>ADD NEW DEVOTEE</b></Button>
+                </CardContent>
+                <CardActions style={{ backgroundColor: "rgb(245 240 238)", display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
+                    <Button variant="contained" style={{ color: "#e96a43", backgroundColor: "rgb(235 223 181)" }} onClick={submitNewDevoteeDetails}><b>ADD NEW DEVOTEE</b></Button>
 
-            </CardActions>
-            {(isSubmit == 1) ? <LinearProgress style={{ backgroundColor: "#e88140" }} /> : ""}
-            {(isSubmit == 2) ? <Snackbar open={true} autoHideDuration={3000} >
-                <Alert severity="success" sx={{ width: '100%' }}>
-                    <b>NEW DEVOTEE ADDED</b>
-                </Alert>
-            </Snackbar> : ""}
-            {(isSubmit == 3) ? <Snackbar open={true} autoHideDuration={3000} >
-                <Alert severity="warning" sx={{ width: '100%' }}>
-                    <b>EXISTING DEVOTEE DETAILS UPDATED</b>
-                </Alert>
-            </Snackbar> : ""}
-            {(isSubmit == 4) ? <Snackbar open={true} autoHideDuration={3000} >
-                <Alert severity="error" sx={{ width: '100%' }}>
-                    <b>ERROR ADDING DEVOTEE DETAILS</b>
-                </Alert>
-            </Snackbar> : ""}
-        </Card>
-        
+                </CardActions>
+                {(isSubmit == 1) ? <LinearProgress style={{ backgroundColor: "#e88140" }} /> : ""}
+                {(isSubmit == 2) ? <Snackbar open={true} autoHideDuration={3000} >
+                    <Alert severity="success" sx={{ width: '100%' }}>
+                        <b>NEW DEVOTEE ADDED</b>
+                    </Alert>
+                </Snackbar> : ""}
+                {(isSubmit == 3) ? <Snackbar open={true} autoHideDuration={3000} >
+                    <Alert severity="warning" sx={{ width: '100%' }}>
+                        <b>EXISTING DEVOTEE DETAILS UPDATED</b>
+                    </Alert>
+                </Snackbar> : ""}
+                {(isSubmit == 4) ? <Snackbar open={true} autoHideDuration={3000} >
+                    <Alert severity="error" sx={{ width: '100%' }}>
+                        <b>ERROR ADDING DEVOTEE DETAILS</b>
+                    </Alert>
+                </Snackbar> : ""}
+            </Card>
+
         </>
     );
 }
