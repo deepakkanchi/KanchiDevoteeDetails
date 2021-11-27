@@ -12,7 +12,10 @@ import StaticContentImg from './StaticContentImg';
 import DevoteeDataTable from './DevoteeDataTable';
 import SearchAndViewDetails from './SearchAndViewDetails';
 
+
+
 export default function ViewDevotees() {
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Header text="Sri Kanchi Kamakoti Peetam - Devotee Details" />

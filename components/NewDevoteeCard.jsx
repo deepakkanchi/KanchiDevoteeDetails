@@ -10,21 +10,65 @@ import TextField from '@material-ui/core/TextField';
 import { LinearProgress, Snackbar } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert'
 
+import dbService from '../services/dbService';
 
 
 export default function NewDevoteeCard() {
 
     var [name, setName] = useState("");
+    var [nameOk, setNameOk] = useState(true);
+    var [phoneOk, setPhoneOk] = useState(true);
     var [address, setAddress] = useState("");
     var [phone, setPhone] = useState("");
     var [email, setEmail] = useState("");
+    var [emailOk, setEmailOk] = useState(true);
+    var [exist, setExist] = useState(false);
 
     var [isSubmit, setIsSubmit] = useState(0);
+    var [empty, setEmpty] = useState(false);
+
+    useEffect(() => {
+        if (name != "" && !/^[A-z ]+$/.test(name)) {
+            setNameOk(false);
+        } else {
+            setNameOk(true);
+        }
+    }, [name]);
+
+    useEffect(() => {
+        if (phone != "" && !/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g.test(phone)) {
+            setPhoneOk(false);
+        } else {
+            setPhoneOk(true);
+        }
+    }, [phone]);
+
+    useEffect(() => {
+        if (email != "" && !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+            setEmailOk(false);
+        } else {
+            setEmailOk(true);
+        }
+    }, [email]);
+
+
 
     var submitNewDevoteeDetails = () => {
-        //Validations
-        setIsSubmit(1);
-        setTimeout(() => { setIsSubmit(2); setTimeout(() => { setIsSubmit(0) }, 3000) }, 3000);
+        if (nameOk && phoneOk && emailOk) {
+            setIsSubmit(1);
+            dbService.get(phone).then(snapshot => {
+                if (snapshot.data()) {
+                    setExist(true);
+                }
+            });
+
+            dbService.update(phone, { "name": name, "phone": phone, "email": email, "address": address }).then(res => {
+                exist ? setIsSubmit(2) : setIsSubmit(3);
+            }).catch(err => {
+                setIsSubmit(4);
+            });
+        }
+
     }
 
     return (
@@ -38,10 +82,10 @@ export default function NewDevoteeCard() {
 
                         <br />
                         <div style={{ display: "flex", flexDirection: "column", height: "275px", width: "500px", justifyContent: "space-between" }}>
-                            <TextField label="Name" variant="outlined" onChange={(e, v) => { setName(v) }} />
-                            <TextField label="Address" variant="outlined" onChange={(e, v) => { setAddress(v) }} />
-                            <TextField label="Phone" variant="outlined" onChange={(e, v) => { setPhone(v) }} />
-                            <TextField label="E-Mail" variant="outlined" onChange={(e, v) => { setEmail(v) }} />
+                            <TextField label="Name" error={!nameOk} helperText={!nameOk ? "Name can only contain Letters and Spaces" : ""} variant="outlined" onChange={(e) => { setName(e.target.value) }} />
+                            <TextField label="Address" variant="outlined" onChange={(e) => { setAddress(e.target.value) }} />
+                            <TextField label="Phone" error={!phoneOk} helperText={!phoneOk ? "Not a valid Phone Number" : ""} variant="outlined" onChange={(e) => { setPhone(e.target.value) }} />
+                            <TextField label="E-Mail" error={!emailOk} helperText={!emailOk ? "Not a valid E-Mail ID" : ""} variant="outlined" onChange={(e) => { setEmail(e.target.value) }} />
                         </div>
                     </div>
                 </CardContent>

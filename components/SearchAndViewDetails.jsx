@@ -11,8 +11,10 @@ import MainLinks from './MainLinks'
 import StaticContentImg from './StaticContentImg';
 
 import SearchBar from './SearchBar';
-import DevoteeDataTable from './DevoteeDataTable';
+import ViewAndDownloadDetails from './ViewAndDownloadDetails';
 import { CircularProgress } from '@material-ui/core';
+
+import dbService from '../services/dbService';
 
 export default function ViewDevotees() {
 
@@ -22,7 +24,23 @@ export default function ViewDevotees() {
 
     var fetchAndViewDetails = (fromDate, toDate) => {
         setLoading(1);
-        setTimeout(() => { setLoading(2) }, 3000);
+        dbService.getFromTo(fromDate,toDate).then((querySnapshot) => {
+            console.log("sdfsd");
+            var arr = [["name","phone","email","address"]];
+            //querySnapshot is "iteratable" itself
+            querySnapshot.forEach((userDoc) => {
+
+                //userDoc contains all metadata of Firestore object, such as reference and id
+                console.log(userDoc.id)
+
+                //If you want to get doc data
+                var ud = userDoc.data()
+                console.log("sdf"+JSON.stringify(ud));
+                arr.push([ud.name,ud.phone,ud.email,ud.address]);
+            })
+            setData(arr);
+            setLoading(2);
+        });
     }
 
     return (
@@ -31,7 +49,7 @@ export default function ViewDevotees() {
                 <SearchBar submitFunc={fetchAndViewDetails} />
                 <br />
                 {(loading == 1) ? <CircularProgress /> : ""}
-                {(loading == 2) ? <DevoteeDataTable data={data} /> : ""}
+                {(loading == 2) ? <ViewAndDownloadDetails data={data}/> : ""}
             </div>
         </>
     );

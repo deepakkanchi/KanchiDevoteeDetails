@@ -13,6 +13,7 @@ import * as XLSX from 'xlsx';
 import { CircularProgress, LinearProgress, Snackbar } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert'
 
+import dbService from '../services/dbService';
 
 export default function UploadData() {
 
@@ -45,9 +46,11 @@ export default function UploadData() {
     var uploadToDB = () => {
         console.log("UPLOADING TO DB");
         setUploading(1);
-        setTimeout(() => {
+        dbService.upload(entries).then(res => {
             setUploading(2);
-        }, 3000);
+        }).catch(err => {
+            setUploading(3);
+        })
     }
 
     return (
@@ -73,7 +76,7 @@ export default function UploadData() {
                     <div style={{ width: "900px", marginTop: "20px", display: "flex", flexDirection: "column", alignItems: "center" }}>
                         <DevoteeDataTable data={fileUploaded} setFunc={setEntries} />
                         <Button style={{ marginTop: "20px", width: "150px", color: "#db3fc7", backgroundColor: "#f3d053" }} variant="contained" onClick={() => { uploadToDB(entries) }}><b>UPLOAD TO DB</b></Button>
-                        {uploading == 1 ? <CircularProgress style={{marginTop:"10px"}} /> : ""}
+                        {uploading == 1 ? <CircularProgress style={{ marginTop: "10px" }} /> : ""}
                         {(uploading == 2) ? <Snackbar open={true} autoHideDuration={3000} >
                             <Alert severity="success" sx={{ width: '100%' }}>
                                 <b>ALL DEVOTEE DETAILS UPLOADED</b>

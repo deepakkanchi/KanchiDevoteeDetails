@@ -8,16 +8,15 @@ import "moment/locale/en-in";
 
 const DatePickerComponent = (props) => {
 
-    var [date, setDate] = useState(moment());
 
     return (
         <div style={{marginTop:"-5px"}}>
         <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils} locale={"en"} >
             <DatePicker
                 onChange={(newDate)=>props.setFunc(newDate)}
-                value={date}
-                format="MMM yyyy"
-                views={["month","year"]}
+                value={props.value}
+                format="DD MMM yyyy"
+                views={["date","month","year"]}
             />
         </MuiPickersUtilsProvider>
         </div>
